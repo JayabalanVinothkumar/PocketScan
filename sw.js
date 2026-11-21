@@ -1,5 +1,5 @@
 // PocketScan service worker – caches the app so it runs fully offline.
-const CACHE = 'pocketscan-v1';
+const CACHE = 'pocketscan-v2';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-512.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));

@@ -95,24 +95,6 @@ input[type=range]{flex:1;accent-color:var(--acc)}
 <section id="lib" class="screen active">
   <header><h1>PocketScan</h1></header>
   <div class="main">
-    <div id="installHint" class="hint" hidden><div>📲 For offline use: tap <b>Share</b> → <b>Add to Home Screen</b>, then open PocketScan from the home screen icon.</div><button class="btn ghost icon" id="hintX" style="padding:0 4px">✕</button></div>
-    <div id="libList"></div>
-    <div id="libEmpty" class="empty"><div class="big">📄</div>No scans yet.<br>Tap <b>Scan</b> to capture a document.</div>
-  </div>
-  <div class="bar">
-    <label for="picIn" class="btn newdoc" data-ic="img">Import</label>
-    <label for="camIn" class="btn acc newdoc" data-ic="cam">Scan</label>
-  </div>
-</section>
-
-<!-- DOCUMENT -->
-<section id="doc" class="screen">
-  <header>
-    <button class="btn ghost icon" id="docBack" data-ic="back"></button>
-    <h1 id="docTitle"></h1>
-    <button class="btn ghost icon" id="docRename" data-ic="pen"></button>
-  </header>
-  <div class="main"><div class="grid" id="pageGrid"></div></div>
   <div class="bar">
     <label for="picIn" class="btn" data-ic="img">Add</label>
     <label for="camIn" class="btn" data-ic="cam">Scan</label>
@@ -743,10 +725,6 @@ $('#editDone').onclick = async () => {
   try { await DB.open(); } catch (e) { toast('Storage unavailable: ' + e.message, 5000); }
   renderLib();
   try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch { }
-  const standalone = window.navigator.standalone || matchMedia('(display-mode: standalone)').matches;
-  let dismissed = false; try { dismissed = localStorage.getItem('ps_hint') === '1'; } catch { }
-  if (!standalone && !dismissed && /iPhone|iPad|iPod/.test(navigator.userAgent)) $('#installHint').hidden = false;
-  $('#hintX').onclick = () => { $('#installHint').hidden = true; try { localStorage.setItem('ps_hint', '1'); } catch { } };
   if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('sw.js').catch(() => { });
 })();
 </script>
